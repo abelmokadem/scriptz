@@ -11,6 +11,7 @@ start:
       env:
         NAME: Test
       cwd: test
+      continue_on_error: true
     - name: Test
       env: test/fixtures/test.env.js
       script: test/fixtures/test.sh

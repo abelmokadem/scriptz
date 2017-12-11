@@ -4,7 +4,9 @@ import { create } from "./logger";
 import { IRunConfigurationStep } from "./run-configuration-step.interface";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/defer";
+import "rxjs/add/observable/of";
 import "rxjs/add/operator/retry";
+import "rxjs/add/operator/catch";
 import { IRunConfigurationOptions } from "./run-configuration-options.interface";
 
 export const runStep = (
@@ -34,34 +36,21 @@ export const runStep = (
       ? step.retry_count
       : options.retry_count;
 
-  return Observable.defer(() => {
+  const processStream = Observable.defer(() => {
     return new Promise((resolve, reject) => {
       const child = spawn(
         path.join(process.cwd(), step.script),
         processArguments as string[],
         {
+          shell: "/bin/bash",
           cwd: cwd,
           env: env
         }
       );
       logger.info(`Started step ${step.name} in directory ${cwd}`);
 
-      child.stdout.on("data", function(data) {
-        data
-          .toString()
-          .split("\n")
-          .forEach(line => {
-            logger.info(line);
-          });
-      });
-      child.stderr.on("data", function(data) {
-        data
-          .toString()
-          .split("\n")
-          .forEach(line => {
-            logger.error(line);
-          });
-      });
+      child.stdout.pipe(process.stdout);
+      child.stderr.pipe(process.stderr);
 
       child.on("close", function(code) {
         logger.info(`Finished with exit code ${code}`);
@@ -71,4 +60,12 @@ export const runStep = (
       });
     });
   }).retry(retryCount);
+
+  if (step.continue_on_error) {
+    return processStream.catch(code => {
+      return Observable.of(code);
+    });
+  }
+
+  return processStream;
 };

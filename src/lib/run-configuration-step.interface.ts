@@ -3,6 +3,7 @@ export interface IRunConfigurationStep {
   script: string;
   output_file: string;
 
+  continue_on_error?: boolean;
   arguments?: Array<String>;
   cwd?: string;
   env?: any;
