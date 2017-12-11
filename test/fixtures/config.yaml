@@ -12,6 +12,7 @@ start:
       retry_count: 1
       env:
         NAME: Test
+      cwd: test
     - name: Install
       script: test/fixtures/test.sh
       retry_count: 1

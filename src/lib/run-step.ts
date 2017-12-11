@@ -12,11 +12,17 @@ export const runStep = (
   options: IRunConfigurationOptions
 ): Observable<any> => {
   const logger = create({
-    name: `${step.name} / ${step.script}`,
+    name: `${step.name}`,
     file: path.resolve(process.cwd(), step.output_file)
   });
 
   const processArguments = step.arguments || [];
+
+  const cwd =
+    typeof step.cwd !== "undefined"
+      ? path.join(process.cwd(), step.cwd)
+      : process.cwd();
+  const env = Object.assign({}, options.env, step.env);
 
   const retryCount =
     typeof step.retry_count !== "undefined"
@@ -29,7 +35,8 @@ export const runStep = (
         path.join(process.cwd(), step.script),
         processArguments as string[],
         {
-          env: Object.assign({}, options.env, step.env)
+          cwd: cwd,
+          env: env
         }
       );
       logger.info(`Started step ${step.name}`);

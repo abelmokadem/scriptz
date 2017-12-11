@@ -4,6 +4,7 @@ export interface IRunConfigurationStep {
   output_file: string;
 
   arguments?: Array<String>;
+  cwd?: string;
   env?: any;
   retry_count?: number;
 }
