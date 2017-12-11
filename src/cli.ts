@@ -18,9 +18,9 @@ program
         const file = yaml.safeLoad(fs.readFileSync(filename, 'utf-8').toString()) as IRunConfiguration
 
         run(file).subscribe(result => {
-            console.log('Success');
+            console.log(result);
         }, error => {
-            console.log('Error');
+            console.log(error);
         })
     })
 

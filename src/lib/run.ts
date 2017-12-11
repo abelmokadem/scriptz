@@ -12,9 +12,9 @@ export const run = (configuration: IRunConfiguration): Observable<any> => {
       : 0;
 
   const env =
-      typeof options.env === "string"
-          ? require(path.join(process.cwd(), options.env)).env
-          : options.env;
+    typeof options.env === "string"
+      ? require(path.join(process.cwd(), options.env)).env
+      : options.env;
   options.env = Object.assign({}, env);
 
   console.log(

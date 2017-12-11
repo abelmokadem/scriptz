@@ -49,7 +49,6 @@ export const runStep = (
       child.stdout.on("data", function(data) {
         data
           .toString()
-          .trim()
           .split("\n")
           .forEach(line => {
             logger.info(line);
@@ -58,7 +57,6 @@ export const runStep = (
       child.stderr.on("data", function(data) {
         data
           .toString()
-          .trim()
           .split("\n")
           .forEach(line => {
             logger.error(line);
@@ -67,7 +65,7 @@ export const runStep = (
 
       child.on("close", function(code) {
         logger.info(`Finished with exit code ${code}`);
-        if (code > 0) reject(new Error(`${code}`));
+        if (code > 0) reject(code);
 
         resolve(code);
       });
