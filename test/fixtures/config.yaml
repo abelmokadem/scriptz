@@ -1,20 +1,18 @@
 options:
   retry_count: 3
-  env:
-    FOO: bar
 start:
   name: Main
   flow: sequential
   steps:
     - name: Clean
-      script: clean.sh
+      script: test/fixtures/clean.sh
       arguments:
         - foo
-      output_file: clean.log
+      output_file: logs/clean.log
       retry_count: 1
       env:
-        FOO: Test
+        NAME: Test
     - name: Install
-      script: install.sh
+      script: test/fixtures/test.sh
       retry_count: 1
-      output_file: install.log
+      output_file: logs/install.log

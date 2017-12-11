@@ -2,6 +2,6 @@
 
 set -e
 
-echo "Test"
+echo "Clean"
 echo "Name: ${NAME}"
 echo "Arguments: ${@}"

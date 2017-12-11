@@ -25,7 +25,6 @@ export const runStep = (
 
   return Observable.defer(() => {
     return new Promise((resolve, reject) => {
-      const processArguments = step.arguments;
       const child = spawn(
         path.join(process.cwd(), step.script),
         processArguments as string[],
