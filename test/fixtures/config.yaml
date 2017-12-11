@@ -6,14 +6,13 @@ start:
   steps:
     - name: Clean
       script: test/fixtures/clean.sh
-      arguments:
-        - foo
       output_file: logs/clean.log
       retry_count: 1
       env:
         NAME: Test
       cwd: test
-    - name: Install
+    - name: Test
+      env: test/fixtures/test.env.js
       script: test/fixtures/test.sh
       retry_count: 1
       output_file: logs/install.log

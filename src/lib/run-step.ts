@@ -22,7 +22,12 @@ export const runStep = (
     typeof step.cwd !== "undefined"
       ? path.join(process.cwd(), step.cwd)
       : process.cwd();
-  const env = Object.assign({}, options.env, step.env);
+
+  const stepEnv =
+    typeof step.env === "string"
+      ? require(path.join(process.cwd(), step.env)).env
+      : step.env;
+  const env = Object.assign({}, options.env, stepEnv);
 
   const retryCount =
     typeof step.retry_count !== "undefined"
