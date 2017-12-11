@@ -39,7 +39,7 @@ export const runStep = (
           env: env
         }
       );
-      logger.info(`Started step ${step.name}`);
+      logger.info(`Started step ${step.name} in directory ${cwd}`);
 
       child.stdout.on("data", function(data) {
         data
