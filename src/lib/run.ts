@@ -17,13 +17,5 @@ export const run = (configuration: IRunConfiguration): Observable<any> => {
       : options.env;
   options.env = Object.assign({}, env);
 
-  console.log(
-    `Running scripts with the following options: \n${JSON.stringify(
-      options,
-      null,
-      2
-    )}`
-  );
-
   return runFlow(configuration.start, options);
 };
