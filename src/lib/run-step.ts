@@ -8,6 +8,7 @@ import "rxjs/add/observable/of";
 import "rxjs/add/operator/retry";
 import "rxjs/add/operator/catch";
 import { IRunConfigurationOptions } from "./run-configuration-options.interface";
+import * as fs from "fs";
 
 export const runStep = (
   step: IRunConfigurationStep,
@@ -49,8 +50,12 @@ export const runStep = (
       );
       logger.info(`Started step ${step.name} in directory ${cwd}`);
 
-      child.stdout.pipe(process.stdout);
-      child.stderr.pipe(process.stderr);
+      child.stdout.pipe(
+        fs.createWriteStream(path.join(process.cwd(), step.output_file))
+      );
+      child.stderr.pipe(
+        fs.createWriteStream(path.join(process.cwd(), step.output_file))
+      );
 
       child.on("close", function(code) {
         logger.info(`Finished with exit code ${code}`);
