@@ -48,7 +48,7 @@ export const runStep = (
           env: env
         }
       );
-      logger.info(`Started step ${step.name} in directory ${cwd}`);
+      logger.info(`Started step ${step.name}`);
 
       child.stdout.pipe(
         fs.createWriteStream(path.join(process.cwd(), step.output_file))

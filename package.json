@@ -1,6 +1,6 @@
 {
   "name": "scriptz",
-  "version": "0.0.12",
+  "version": "0.0.14",
   "description": "Configuration file based script runner",
   "main": "src/index.js",
   "bin": {
