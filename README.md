@@ -42,3 +42,5 @@ start:
       retry_count: 1
       output_file: install.log
 ```
+
+See the full [documentation](./docs/README.md)
