@@ -3,7 +3,7 @@
 The configuration exists of flows and steps. We start of by defining a
 couple of options and the start flow.
 
-```
+```yaml
 options:
   retry_count: number     # (default: 0) Retry count if exit code > 0
   env: Object             # (default: {}) Additional environment variables
@@ -14,6 +14,16 @@ start:
 The base options that are defined will be used for each step. All the
 environment variables from the base options will be used, if it is set.
 If it is also defined on the step level, then the object will be merged.
+
+## Flow configuration
+
+```yaml
+# Required values
+name: string                # Label
+flow: string                # Type of flow 'sequential' or 'parallel'
+steps: Array<Step>          # Where to write logs / directory should exist
+```
+
 
 ## Step configuration
 
