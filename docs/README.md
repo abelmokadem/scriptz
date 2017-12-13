@@ -5,10 +5,10 @@ couple of options and the start flow.
 
 ```
 options:
-    retry_count: number     # (default: 0) Retry count if exit code > 0
-    env: Object             # (default: {}) Additional environment variables
+  retry_count: number     # (default: 0) Retry count if exit code > 0
+  env: Object             # (default: {}) Additional environment variables
 start:
-    ...
+  ...
 ```
 
 The base options that are defined will be used for each step. All the
