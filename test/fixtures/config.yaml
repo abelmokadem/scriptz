@@ -4,7 +4,7 @@ start:
   name: Main
   flow: sequential
   steps:
-    - name: Clean
+    - name: Clean 1
       script: test/fixtures/clean.sh
       output_file: logs/clean.log
       retry_count: 1
@@ -12,8 +12,25 @@ start:
         NAME: Test
       cwd: test
       continue_on_error: true
-    - name: Test
+    - name: Test 2
       env: test/fixtures/test.env.js
       script: test/fixtures/test.sh
       retry_count: 1
       output_file: logs/install.log
+    - name: Parallel
+      flow: parallel
+      steps:
+        - name: Clean 3a
+          script: test/fixtures/clean.sh
+          output_file: logs/clean.log
+          retry_count: 1
+          env:
+            NAME: Test
+          cwd: test
+          continue_on_error: true
+        - name: Test 3b
+          env: test/fixtures/test.env.js
+          script: test/fixtures/test.sh
+          retry_count: 1
+          output_file: logs/install.log
+

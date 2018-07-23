@@ -5,6 +5,8 @@ import { runStep } from "./run-step";
 import { Observable } from "rxjs/Observable";
 import "rxjs/add/observable/forkJoin";
 import "rxjs/add/observable/concat";
+import "rxjs/add/observable/merge";
+import "rxjs/add/operator/toArray";
 import "rxjs/add/operator/switchMap";
 import { IRunConfigurationOptions } from "./run-configuration-options.interface";
 
@@ -24,7 +26,5 @@ export const runFlow = (
     return Observable.forkJoin(stepStream);
   }
 
-  return stepStream.reduce((memo: Observable<any>, step: Observable<any>) => {
-    return memo.switchMap(() => step);
-  });
+  return Observable.concat(...stepStream).toArray();
 };
